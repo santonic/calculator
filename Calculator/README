@@ -1,0 +1,26 @@
+Some explanations : goal of this exercise was to provide a Calculator class that 
+can be called with string commands in order to run the usual calculations. 
+e.g. 
+ADD 10
+SUBSTRACT 1
+DISPLAY
+will display 9 
+the Main class shows a sample usage. 
+
+Here is the implementation I have chosen:
+- Calculator is first parsing the given string and then calls the corresponding operation
+- CommandParser is in charge of parsing the command string and building a Command object 
+describing the operator and operands
+- Operation is an interface with an operate method. It is implemented for each 
+allowed operation, e.g. Addition, Substraction, Display, ... 
+
+In this exercice, the Main is in charge of the dependencies injection (builds the list of known 
+operations, of the parser, ...)
+At some point I had to change Command and CommandParser so that they can be used for 
+multi-operands operators (e.g. ADD 3 4 , ADD 5, DISPLAY will display 12) . 
+
+In order to add a new operator, you just to add a implementation of Operation to the
+ set of operations known by Calculator.
+
+I have written this code mostly in TDD. I have used Mockito for and easy mock setup 
+and check, and Hamcrest matchers for assertions.
