@@ -36,6 +36,7 @@ public class TestCalculator {
 	public void testExistingCommand(){
 		when(commandParser.parseCommand(anyString())).thenReturn(new Command("COMMAND", 2, 3));
 		Operation command = mock(Operation.class);
+		when(command.operate()
 		operations.put("COMMAND", command);
 		
 		calculator.run("COMMAND 2 3");
