@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -36,11 +37,12 @@ public class TestCalculator {
 	public void testExistingCommand(){
 		when(commandParser.parseCommand(anyString())).thenReturn(new Command("COMMAND", 2, 3));
 		Operation command = mock(Operation.class);
-		when(command.operate()
+		when(command.operate(0,2,3)).thenReturn(10);
 		operations.put("COMMAND", command);
-		
-		calculator.run("COMMAND 2 3");
-		
+
+		int result = calculator.run("COMMAND 2 3");
+
+		Assert.assertEquals(10, result);
 		verify(command).operate(0, new Integer[]{2,3});
 	}
 
