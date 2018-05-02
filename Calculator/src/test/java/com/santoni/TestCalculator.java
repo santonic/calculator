@@ -43,7 +43,6 @@ public class TestCalculator {
 		int result = calculator.run("COMMAND 2 3");
 
 		Assert.assertEquals(10, result);
-		verify(command).operate(0, new Integer[]{2,3});
 	}
 
 
