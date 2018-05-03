@@ -1,33 +1,59 @@
 package com.santoni;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
-import com.santoni.operation.Operation;
+import org.apache.commons.lang.StringUtils;
 
 
 public class Calculator {
-
-	private CommandParser commandParser;
-
-	private Map<String, Operation> operations;
-
 	int current;
 
-	public Calculator(CommandParser commandParser, Map<String, Operation> operations) {
-		this.commandParser = commandParser;
-		this.operations = operations;
+	public Calculator() {
 	}
 
-	public Integer run(String commandLine) {
-		Command command = commandParser.parseCommand(commandLine);
-		Operation operation = operations.get(command.getOperator());
+	public int run(String commandLine) {
+	    // parse command Line
+        StringBuilder operatorSB = new StringBuilder();
+        List<Integer> operands = new ArrayList<Integer>();
+        StringTokenizer stringTokenizer = new StringTokenizer(commandLine);
 
-		if(operation!=null){
-			current = operation.operate(current, command.getOperands());
-			return current;
-		} else {
-			throw new IllegalArgumentException("unexpected operator: "+command.getOperator());
-		}
+        while (stringTokenizer.hasMoreTokens()) {
+            String token = (String) stringTokenizer.nextToken();
+            if (StringUtils.isAlpha(token)) {
+                operatorSB.append(" " + token);
+            } else {
+                operands.add(Integer.valueOf(token));
+            }
+        }
+        String operator = operatorSB.substring(1);
+
+        // run operation
+		switch (operator){
+            case "DISPLAY":
+                System.out.println((Integer) current);
+                break;
+            case "ADD":
+                for (Integer operand : operands) {
+                    current += operand;
+                }
+                break;
+            case "SUBSTRACT":
+                current = (Integer) current - operands.get(0);
+                break;
+            case "DIVIDE BY":
+                if(operands.get(0)==0) throw new IllegalArgumentException("divide by 0 not authorized");
+                current = (Integer) current / operands.get(0);
+                break;
+            case "MULTIPLY BY":
+                current = (Integer) current * operands.get(0);
+                break;
+            default:
+                throw new IllegalArgumentException("unexpected operator: "+operator);
+        }
+
+        return current;
 	}
 	
 	
