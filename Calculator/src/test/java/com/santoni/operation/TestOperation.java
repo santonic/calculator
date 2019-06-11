@@ -1,14 +1,13 @@
 package com.santoni.operation;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 
-import org.junit.Test;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class TestOperation {
 
