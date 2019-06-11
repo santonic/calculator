@@ -4,6 +4,8 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 
 import org.junit.Test;
@@ -47,9 +49,8 @@ public class TestOperation {
 
   @Test
   public void testDisplay() {
-    PrintStream mockOut = mock(PrintStream.class);
-    new DisplayOperation(mockOut).operate(6);
-    verify(mockOut).println(Integer.valueOf(6));
-
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    new DisplayOperation(outputStream).operate(6);
+    assertEquals("6\n", outputStream.toString());
   }
 }
